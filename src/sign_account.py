@@ -50,9 +50,20 @@ def do_sign_98(debug, config, config98):
         do_sleep(5)
 
         print("98 开始签到")
-        do_sign(browser, config98)
-        print("98 签到完毕")
-        send_message(config.get("qiye_wx", None), "98签到完毕")
+        sign_success=False
+        for i in range(0, 3):
+            try:
+                do_sign(browser, config98)
+                print("98 签到完毕")
+                send_message(config.get("qiye_wx", None), "98签到完毕")
+                sign_success=True
+                break
+            except Exception as e:
+                print("98 签到异常 准备重试",i, e)
+                do_sleep((i+1)*15)
+        if not sign_success:
+            send_message(config.get("qiye_wx", None), "98签到重试3次都失败,请手动签到")
+            print("98 签到重试3次都失败,请手动签到")
         do_sleep(5)
     except Exception as e:
         print("do_sign_98 异常 等待重试", e)

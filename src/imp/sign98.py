@@ -104,7 +104,7 @@ def do_sign(browser, config):
     do_sleep(5)
     browser.find_element(By.CLASS_NAME, "ddpc_sign_btn_red").click()
 
-    do_sleep(5)
+    do_sleep(15)
     pro = browser.find_element(By.XPATH, '//div[@class="rfm"]/table/tbody/tr/td')
     answer = calc_answer(pro.text)
 
